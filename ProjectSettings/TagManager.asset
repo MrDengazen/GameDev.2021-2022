@@ -45,10 +45,10 @@ TagManager:
   - name: Gound
     uniqueID: 2977942635
     locked: 0
-  - name: Floor
+  - name: Nature
     uniqueID: 3170663343
     locked: 0
-  - name: Nature
+  - name: Items
     uniqueID: 3231800667
     locked: 0
   - name: Player

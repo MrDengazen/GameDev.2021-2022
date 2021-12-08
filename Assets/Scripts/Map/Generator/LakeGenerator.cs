@@ -3,36 +3,42 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
-public class MapGenerator : MonoBehaviour
+public class LakeGenerator : MonoBehaviour
 {
     [Range(0,100)]
-    public int iniChance;
+    public int iniChance = 50;
 
     [Range(1,8)]
-    public int birthLimit;
+    public int birthLimit = 3;
     
     [Range(1,8)]
-    public int deathLimit;
+    public int deathLimit = 3;
 
     [Range(1,10)]
-    public int numR;
+    public int numR = 5;
 
     private int count = 0;
 
     private int [,] terrainMap;
-    public Vector2Int mapSize;
 
-    public Tilemap botMap;
+    private Tilemap botMap;
 
-    public RuleTile botTile;
+    public RuleTile lakeTile;
 
     int width;
     int height;
 
-    public void doSim(int numR){
+    private void Awake()
+    {
+        botMap = GetComponent<Tilemap>();
+        Generate(MapManager.Instance.mapSize);
+    }
+
+    public void Generate(Vector2Int mapSize){
         clearMap(false);
-        width = mapSize.x;
-        height = mapSize.y;
+        botMap.size = new Vector3Int(mapSize.x, mapSize.y,0);
+        width = botMap.size.x;
+        height = botMap.size.y;
         if (terrainMap == null){
             terrainMap = new int[width, height];
             initPos();
@@ -48,7 +54,7 @@ public class MapGenerator : MonoBehaviour
             for (int y = 0; y < height; y++)
             {
                 if (terrainMap[x,y] == 1){
-                    botMap.SetTile(new Vector3Int(-x + width/2, -y + height/2, 0), botTile);
+                    botMap.SetTile(new Vector3Int(x, y, 0), lakeTile);
                 }
             }
         }
