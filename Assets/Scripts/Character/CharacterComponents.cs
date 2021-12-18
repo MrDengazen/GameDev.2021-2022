@@ -3,36 +3,33 @@ using UnityEngine.InputSystem;
 
 public class CharacterComponents : MonoBehaviour
 {
-    protected float horizontalInput;
-    protected float verticalInput;
+    protected float HorizontalInput;
+    protected float VerticalInput;
 
-    protected CharacterController controller;
-    protected CharacterMovement characterMovement;
-    protected CharacterRotation characterRotation;
-    protected Animator animator;
+    protected CharacterController CharacterController;
+    protected Animator CharacterAnimator;
 
-    protected @Rogue inputPlayer;
+    private @Rogue _inputPlayer;
 
     protected virtual void Awake()
     {
-        controller = GetComponent<CharacterController>();
-        characterMovement = GetComponent<CharacterMovement>();
-        animator = GetComponent<Animator>();
-        inputPlayer = new @Rogue();
+        CharacterController = GetComponent<CharacterController>();
+        CharacterAnimator = GetComponent<Animator>();
+        _inputPlayer = new @Rogue();
     }
 
     protected virtual void Start() {
-        
+
     }
 
     private void OnEnable()
     {
-        inputPlayer.Enable();
+        _inputPlayer.Enable();
     }
 
     private void OnDisable()
     {
-        inputPlayer.Disable();
+        _inputPlayer.Disable();
     }
 
     protected virtual void Update()
@@ -62,18 +59,9 @@ public class CharacterComponents : MonoBehaviour
     /// </summary>
     protected virtual void InternalInput()
     {
-        Vector2 movementInput = inputPlayer.Player.Move.ReadValue<Vector2>();
-        horizontalInput = movementInput.x;
-        verticalInput = movementInput.y;
+        Vector2 movementInput = _inputPlayer.Player.Move.ReadValue<Vector2>();
+        HorizontalInput = movementInput.x;
+        VerticalInput = movementInput.y;
     }
-
-/*
-    public void OnMove(InputValue value)
-    {
-        var  = value.Get<Vector2>();
-        horizontalInput = movementInput.x;
-        verticalInput = movementInput.y;
-    }
-*/
 }
 

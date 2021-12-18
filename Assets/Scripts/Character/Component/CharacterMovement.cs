@@ -5,10 +5,10 @@ public class CharacterMovement : CharacterComponents
 
     [SerializeField] private float walkSpeed = 6f;
 
-    private readonly int movingParameter = Animator.StringToHash("Moving");
-    private readonly float threshold = 0.1f;
+    private readonly int _movingParameter = Animator.StringToHash("Moving");
+    private readonly float _threshold = 0.1f;
 
-    public float MoveSpeed { get; set; }
+    private float MoveSpeed { get; set; }
 
     protected override void Start()
     {
@@ -25,20 +25,17 @@ public class CharacterMovement : CharacterComponents
 
     private void MoveCharacter()
     {
-        Vector2 movement = new Vector2(horizontalInput, verticalInput);
-        Vector2 movementNormalized = movement.normalized; //нормализуем вектор движения
-        Vector2 movementSpeed = movementNormalized * MoveSpeed;
-        controller.SetMovement(movementSpeed);
+        CharacterController.Movement = new Vector2(HorizontalInput, VerticalInput) * MoveSpeed;
     }
 
     private void UpdateAnimations()
     {
-        if (Mathf.Abs(horizontalInput) > threshold || Mathf.Abs(verticalInput) > threshold)
+        if (Mathf.Abs(HorizontalInput) > _threshold || Mathf.Abs(VerticalInput) > _threshold)
         {
-            animator.SetBool(movingParameter, true);
+            CharacterAnimator.SetBool(_movingParameter, true);
         } else
         {
-            animator.SetBool(movingParameter, false);
+            CharacterAnimator.SetBool(_movingParameter, false);
         }
     }
 
