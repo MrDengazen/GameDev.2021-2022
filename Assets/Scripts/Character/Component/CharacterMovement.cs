@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿
+using Characters.Component;
+using UnityEngine;
 
 public class CharacterMovement : CharacterComponents
 {
 
-    [SerializeField] private float walkSpeed = 6f;
 
+    [SerializeField] private CharacterSpeed speed;
     private readonly int _movingParameter = Animator.StringToHash("Moving");
     private readonly float _threshold = 0.1f;
 
@@ -41,7 +43,7 @@ public class CharacterMovement : CharacterComponents
 
     public void ResetSpeed()
     {
-        MoveSpeed = walkSpeed;
+        MoveSpeed = speed.walkSpeed;
     }
 
 }
